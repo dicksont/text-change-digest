@@ -25,60 +25,80 @@
  */
 
 
+(function() {
 
-/* We will use Fowler-Noll-Vo as the hashing function, because FNV gives a
- * good mixture of speed and collision avoidance for the use cases, we are
- * interested in.
- */
+  /* We will use Fowler-Noll-Vo as the hashing function, because FNV gives a
+   * good mixture of speed and collision avoidance for the use cases, we are
+   * interested in.
+   */
 
-function hash(text) {
-  var offset = 2166136261;
-  var prime = 16777619;
-  var hash = offset;
+  function hash(text) {
+    var offset = 2166136261;
+    var prime = 16777619;
+    var hash = offset;
 
-  for (var i=0; i < text.length; i++) {
-      hash = hash ^ text[i];
-      hash = hash * prime;
+    for (var i=0; i < text.length; i++) {
+        hash = hash ^ text[i];
+        hash = hash * prime;
+    }
+
+    return hash;
   }
 
-  return hash;
-}
 
+  function TextChangeDigest(text) {
+    if (text == null) return;
 
-function TextChangeDigest(text) {
-  this.firstCharacter = text[0];
-  this.lastCharacter = text[text.length];
-  this.length = text.length;
-  this.hash = hash(text);
-}
-
-
-TextChangeDigest.prototype.equals = function(digest) {
-
-  return (this.firstCharacter == digest.firstCharacter) &&
-         (this.lastCharacter == digest.lastCharacter) &&
-         (this.length == digest.length) &&
-         (this.hash == digest.hash);
-
-}
-
-TextChangeDigest.prototype.update = function(text, fxChange) {
-
-  if (fxChange == null) {
     this.firstCharacter = text[0];
     this.lastCharacter = text[text.length];
     this.length = text.length;
     this.hash = hash(text);
-    return this;
   }
 
-  if (this.firstCharacter != text[0] || this.lastCharacter != text[text.length] || this.length != text.length) {
-    fxChange();
+
+  TextChangeDigest.prototype.equals = function(digest) {
+
+    return (this.firstCharacter == digest.firstCharacter) &&
+           (this.lastCharacter == digest.lastCharacter) &&
+           (this.length == digest.length) &&
+           (this.hash == digest.hash);
+
+  }
+
+  TextChangeDigest.prototype.update = function(text, fxChange) {
+
+    if (fxChange == null) {
+      this.firstCharacter = text[0];
+      this.lastCharacter = text[text.length];
+      this.length = text.length;
+      this.hash = hash(text);
+      return this;
+    }
+
+    if (this.firstCharacter != text[0] || this.lastCharacter != text[text.length] || this.length != text.length) {
+      fxChange();
+      return this.update(text);
+    }
+
+    var newHash = hash(text);
+
+    if (newHash != this.hash) fxChange();
     return this.update(text);
   }
 
-  var newHash = hash(text);
-  if (newHash != this.hash) fxChange();
+  function factory(text) {
+    return new TextChangeDigest(text);
+  }
 
-  return this.update(text);
-}
+
+  if (typeof define === 'function' && define.amd) { // Require.js & AMD
+    define('text-change-digest', [], function() {
+      return factory;
+    });
+  } else if (typeof module !== 'undefined' && module && module.exports) { // Node.js & CommonJS
+    module.exports = factory;
+  } else { // Browser
+    window.tcdigest = factory;
+  }
+
+})();
