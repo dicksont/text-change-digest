@@ -46,8 +46,8 @@ function hash(text) {
 
 
 function TextChangeDigest(text) {
-  this.firstLetter = text[0];
-  this.lastLetter = text[text.length];
+  this.firstCharacter = text[0];
+  this.lastCharacter = text[text.length];
   this.length = text.length;
   this.hash = hash(text);
 }
@@ -55,8 +55,8 @@ function TextChangeDigest(text) {
 
 TextChangeDigest.prototype.equals = function(digest) {
 
-  return (this.firstLetter == digest.firstLetter) &&
-         (this.lastLetter == digest.lastLetter) &&
+  return (this.firstCharacter == digest.firstCharacter) &&
+         (this.lastCharacter == digest.lastCharacter) &&
          (this.length == digest.length) &&
          (this.hash == digest.hash);
 
@@ -65,14 +65,14 @@ TextChangeDigest.prototype.equals = function(digest) {
 TextChangeDigest.prototype.update = function(text, fxChange) {
 
   if (fxChange == null) {
-    this.firstLetter = text[0];
-    this.lastLetter = text[text.length];
+    this.firstCharacter = text[0];
+    this.lastCharacter = text[text.length];
     this.length = text.length;
     this.hash = hash(text);
     return this;
   }
 
-  if (this.firstLetter != text[0] || this.lastLetter != text[text.length] || this.length != text.length) {
+  if (this.firstCharacter != text[0] || this.lastCharacter != text[text.length] || this.length != text.length) {
     fxChange();
     return this.update(text);
   }
