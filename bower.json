@@ -1,0 +1,29 @@
+{
+  "name": "text-change-digest",
+  "version": "0.0.0",
+  "homepage": "https://github.com/dicksont/text-change-digest",
+  "authors": [
+    "Dickson Tam <dicksont650@gmail.com>"
+  ],
+  "description": "Fast digest/hash optimized for detecting changes to text",
+  "main": "tcdigest.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "digest",
+    "hash",
+    "text",
+    "string",
+    "change",
+    "fast"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
