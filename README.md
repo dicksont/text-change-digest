@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/dicksont/text-change-digest.svg?branch=master)](https://travis-ci.org/dicksont/text-change-digest)
+[![npm version](https://badge.fury.io/js/text-change-digest.svg)](http://badge.fury.io/js/text-change-digest)
+[![Bower version](https://badge.fury.io/bo/text-change-digest.svg)](http://badge.fury.io/bo/text-change-digest)
 
 ## Introduction
 Text-change-digest is a fast digest/hash optimized for detecting changes to text. This makes it well-suited for low-latency, interactive applications. Our goal is to get the text change detection comfortably under 60ms, so that 60fps can be achieved on systems where text changes are polled at hundreds if not thousands of points.
