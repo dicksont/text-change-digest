@@ -1,3 +1,4 @@
+
 ## Introduction
 Text-change-digest is a fast digest/hash optimized for detecting changes to text. This makes it well-suited for low-latency, interactive applications. Our goal is to get the text change detection comfortably under 60ms, so that 60fps can be achieved on systems where text changes are polled at hundreds if not thousands of points.
 
@@ -8,7 +9,33 @@ Most JavaScript number system are all 64-bit floating point based, and give 53 b
 
 Since calculating the hash is relatively expensive, we will push it as far back as possible. To do this, we add quick fields for detecting changes to text. We chose the first character, the last character, and the length. Most changes can be quickly detected by fluctuations in either of the three. This will allow us to avoid computing the hash in order to detect a change most of the time.
 
-[Fowler-Noll-Vo]: http://www.isthe.com/chongo/tech/comp/fnv/
+## Installation
+### Node
+You can use NPM to install text-change-digest. With NPM:
+```javascript
+npm install text-change-digest
+```
+
+And then in your Node source, you would do:
+
+```javascript
+var tcdigest = require('text-change-digest');
+```
+
+### Bower
+You can use Bower to install text-change-digest. With Bower:
+
+```javascript
+bower install text-change-digest
+```
+
+And then in your web page, you can load text-change-digest simply by pointing a script tag to the location of tcdigest.js
+
+```html
+<script src="/bower_components/text-change-digest/tcdigest.js"></script>
+<!-- window.tcdigest should now point to the tcdigest function -->
+```
+
 
 ## License
 
@@ -33,3 +60,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+[Fowler-Noll-Vo]: http://www.isthe.com/chongo/tech/comp/fnv/
