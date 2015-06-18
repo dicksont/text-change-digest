@@ -1,16 +1,21 @@
 var assert = require('assert');
 var tcdigest = require('../tcdigest.js');
-
+var fs = require('fs');
+var path = require('path');
+var constitution = fs.readFileSync(path.resolve(__dirname,'./constitution.txt'), { encoding: 'utf8'});
 var sampleText = [
   [ '', ' ' ],
   [ 'hello', 'hell'],
   [ 'hello', 'bye' ],
   [ '0', ' ' ],
   [ '0', '' ],
-]
+  [ constitution, constitution + ' ']
+];
+var strload = require('string-etc');
+strload('cram');
 
 function test(text1, text2) {
-  describe("'" + text1 + "' '" + text2 + "'" , function() {
+  describe("'" + text1.cram(32, { 'location' : 'body'}) + "' '" + text2.cram(32, { 'location' : 'body' }) + "'" , function() {
     describe('.equals', function() {
       it('should return true for a digest also from the same source', function() {
         var a = tcdigest(text1);
