@@ -32,9 +32,21 @@
    * interested in.
    */
 
-  function hash(text) {
+  function fnv1a(text) {
     var offset = 2166136261;
     var prime = 16777619;
+    var hash = offset;
+
+    for (var i=0; i < text.length; i++) {
+        hash = ((hash << 5) + hash) ^ text[i];
+    }
+
+    return hash;
+  }
+
+  function times33(text) {
+    var offset = 5381;
+    var prime = 33;
     var hash = offset;
 
     for (var i=0; i < text.length; i++) {
@@ -45,12 +57,14 @@
     return hash;
   }
 
+  var hash = fnv1a;
+
 
   function TextChangeDigest(text) {
     if (text == null) return;
 
     this.firstCharacter = text[0];
-    this.lastCharacter = text[text.length];
+    this.lastCharacter = text[text.length - 1];
     this.length = text.length;
     this.hash = hash(text);
   }
@@ -69,7 +83,7 @@
 
     if (fxChange == null) {
       this.firstCharacter = text[0];
-      this.lastCharacter = text[text.length];
+      this.lastCharacter = text[text.length - 1];
       this.length = text.length;
       this.hash = hash(text);
       return this;
