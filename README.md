@@ -27,12 +27,12 @@ Here are the results in microseconds:
 
 Run 1 | Run 2 | Run 3 | Run 4 | Run 5 | Run 6 | Run 7 | Run 8
 ------|-------|-------|-------|-------|-------|-------|------
-1.226 | 1.113 | 1.147 | 1.200 | 1.156 | 1.180 | 1.093 | 1.111
+0.944 | 0.982 | 1.002 | 1.129 | 0.944 | 0.984 | 1.015 | 1.081
 
 
-- **Avg:** 1.153 microseconds
-- **Max:** 1.226 microseconds
-- **Min:** 1.093 microseconds
+- **Avg:** 1.010 microseconds
+- **Max:** 1.129 microseconds
+- **Min:** 0.944 microseconds
 
 ## Installation
 ### Node

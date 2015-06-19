@@ -37,21 +37,20 @@
     var prime = 16777619;
     var hash = offset;
 
-    for (var i=0; i < text.length; i++) {
-        hash = ((hash << 5) + hash) ^ text[i];
+    for (var i=0; i < text.length; i++) {      
+      hash = hash ^ text[i];
+      hash = hash * prime;
     }
 
     return hash;
   }
 
   function times33(text) {
-    var offset = 5381;
-    var prime = 33;
-    var hash = offset;
+    var hash = 5381;
 
     for (var i=0; i < text.length; i++) {
-        hash = hash ^ text[i];
-        hash = hash * prime;
+      hash = ((hash << 5) + hash) ^ text[i];
+
     }
 
     return hash;
