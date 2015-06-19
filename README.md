@@ -65,11 +65,36 @@ And then in your web page, you can load text-change-digest simply by pointing a 
 ## Constructor([text])
 Create a new digest.
 
+Example:
+
+```javascript
+var createDigest = require('../tcdigest.js');
+var digest = createDigest('Hello');
+```
+
 ## .equals(otherDigest)
 Returns true if this digest equals **otherDigest**.
 
+Example:
+```javascript
+var createDigest = require('../tcdigest.js');
+var digest = createDigest('Hello');
+digest.equals(digest) // Returns true;
+```
+
 ## .update(newText, [fxChange])
 Updates this digest using **newText**. If a change is detected anytime in the process, then **fxChange** is called immediately. When **fxChange** is called, the digest will be in an indeterminate state. We advise against accessing or modifying digest state during this span.
+
+Example:
+
+```javascript
+var createDigest = require('../tcdigest.js');
+var digest = createDigest('Hello');
+digest.update('world', function() {
+  console.log('updated');
+})
+
+```
 
 # License
 
