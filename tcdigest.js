@@ -89,7 +89,7 @@
       return this;
     }
 
-    if (this.firstCharacter != text[0] || this.lastCharacter != text[text.length] || this.length != text.length) {
+    if (this.firstCharacter != text[0] || this.lastCharacter != text[text.length - 1] || this.length != text.length) {
       fxChange();
       return this.update(text);
     }
