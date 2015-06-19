@@ -12,6 +12,28 @@ Most JavaScript number system are all 64-bit floating point based, and give 53 b
 
 Since calculating the hash is relatively expensive, we will push it as far back as possible. To do this, we add quick fields for detecting changes to text. We chose the first character, the last character, and the length. Most changes can be quickly detected by fluctuations in either of the three. This will allow us to avoid computing the hash in order to detect a change most of the time.
 
+## Benchmarks
+
+To get an estimate of its performance characteristics, we created a benchmark. We repeatedly called the update method with a new performance.now() string, recorded the gap time til the update callback, then averaged all the recorded timings.
+
+Here are the results in microseconds:
+
+- **Browser:** Google Chrome 43.0.2357.124 (64-bit)  
+- **Operating System:** Mac OS X 10.10.3
+- **CPU:** 2.4 GHz Intel Core i7
+
+- **Update cycles / run :** 100,000
+
+
+Run 1 | Run 2 | Run 3 | Run 4 | Run 5 | Run 6 | Run 7 | Run 8
+------|-------|-------|-------|------------------------------
+1.226 | 1.113 | 1.147 | 1.200 | 1.156 | 1.180 | 1.093 | 1.111
+
+
+- **Avg:** 1.153 microseconds
+- **Max:** 1.226 microseconds
+- **Min:** 1.093 microseconds
+
 ## Installation
 ### Node
 You can use NPM to install text-change-digest. With NPM:

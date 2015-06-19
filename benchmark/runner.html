@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Benchmark Runner for Text-Change-Digest</title>
+  <style type="text/css">
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  border: 1px solid #f0f0f0;
+  padding: 12px 15px;
+}
+  </style>
+</head>
+<body>
+  <div>
+    <p>This benchmark measures the gap time til the update callback gets called.</p>
+  </div>
+  <table>
+    <tr>
+      <td>
+        <button type="button">Run 1</button>
+      </td>
+      <td>
+        <button type="button">Run 2</button>
+      </td>
+      <td>
+        <button type="button">Run 3</button>
+      </td>
+      <td>
+        <button type="button">Run 4</button>
+      </td>
+      <td>
+        <button type="button">Run 5</button>
+      </td>
+      <td>
+        <button type="button">Run 6</button>
+      </td>
+      <td>
+        <button type="button">Run 7</button>
+      </td>
+      <td>
+        <button type="button">Run 8</button>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+  <script src="../tcdigest.js"></script>
+  <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+  <script>
+
+    var digest = tcdigest("" + performance.now());
+
+    function timeUpdate() {
+      var timings = [];
+
+      function runCycle() {
+        var start = performance.now();
+        digest.update("" + start, function() {
+          timings.push(performance.now() - start);
+        });
+      }
+
+      function avgTiming() {
+        var timing = timings.reduce(function(pval, cval) { return {count: pval.count + 1, sum: pval.sum + cval}}, { count: 0, sum: 0 });
+        return timing.sum / timing.count;
+      }
+
+      for (var i=0; i < 100000; i++) {
+        runCycle();
+      }
+
+      return avgTiming();
+    }
+
+    $(function() {
+      $('button').click(function() {
+        var text = $(this).text();
+        var index = text.replace(/Run /, '');
+
+        var runres = Math.round(timeUpdate() * 1000000) / 1000;
+        $('table tr:nth-child(2) td:nth-child(' + index + ')').text(runres);
+
+      });
+    });
+
+  </script>
+</body>
+</html>
