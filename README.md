@@ -69,7 +69,7 @@ Create a new digest.
 Returns true if this digest equals **otherDigest**.
 
 ## .update(newText, [fxChange])
-Updates this digest using **newText**. If a change is detected anytime in the process, then **fxChange** is called immediately. When **fxChange** is called, the digest will be in an indetermine state. We advise against using any reflection during this span.
+Updates this digest using **newText**. If a change is detected anytime in the process, then **fxChange** is called immediately. When **fxChange** is called, the digest will be in an indeterminate state. We advise against using any reflection during this span.
 
 # License
 
