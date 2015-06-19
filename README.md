@@ -2,17 +2,17 @@
 [![npm version](https://badge.fury.io/js/text-change-digest.svg)](http://badge.fury.io/js/text-change-digest)
 [![Bower version](https://badge.fury.io/bo/text-change-digest.svg)](http://badge.fury.io/bo/text-change-digest)
 
-## Introduction
+# Introduction
 Text-change-digest is a fast digest/hash optimized for detecting changes to text. This makes it well-suited for low-latency, interactive applications. Our goal is to get the text change detection comfortably under 60ms, so that 60fps can be achieved on systems where text changes are polled at hundreds if not thousands of points.
 
-## Optimizations
+# Optimizations
 Our main method of providing fast change detection is to pick a hashing algorithm with sufficient characteristics, and to avoid calculating it until the very last stage in our change detection sequence. We picked 32-bit [Fowler-Noll-Vo] 1a as our hashing algorithm. [Fowler-Noll-Vo] gives pretty good diffusion, and is fast to compute.
 
 Most JavaScript number system are all 64-bit floating point based, and give 53 bits of precision. A 32-bit version of FNV would fit comfortably on all the major JavaScript VM's. 64-bit would not fit without folding. We felt that folding was unnecessary. It is an extra round that we would like to avoid.
 
 Since calculating the hash is relatively expensive, we will push it as far back as possible. To do this, we add quick fields for detecting changes to text. We chose the first character, the last character, and the length. Most changes can be quickly detected by fluctuations in either of the three. This will allow us to avoid computing the hash in order to detect a change most of the time.
 
-## Benchmarks
+# Benchmarks
 
 To get an estimate of its performance characteristics, we created a benchmark. We repeatedly called the update method with a new performance.now() string, recorded the gap time til the update callback, then averaged all the recorded timings.
 
@@ -34,7 +34,7 @@ Run 1 | Run 2 | Run 3 | Run 4 | Run 5 | Run 6 | Run 7 | Run 8
 - **Max Latency:** 1.129 microseconds
 - **Min Latency:** 0.944 microseconds
 
-## Installation
+# Installation
 ### Node
 You can use NPM to install text-change-digest. With NPM:
 ```javascript
@@ -61,8 +61,17 @@ And then in your web page, you can load text-change-digest simply by pointing a 
 <!-- window.tcdigest should now point to the tcdigest function -->
 ```
 
+# API
+## Constructor([text])
+Create a new digest.
 
-## License
+## .equals(otherDigest)
+Returns true if this digest equals **otherDigest**.
+
+## .update(newText, [fxChange])
+Updates this digest using **newText**. If a change is detected anytime in the process, then **fxChange** is called immediately. When **fxChange** is called, the digest will be in an indetermine state. We advise against using any reflection during this span.
+
+# License
 
 The MIT License (MIT)
 
