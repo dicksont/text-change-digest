@@ -30,9 +30,9 @@ Run 1 | Run 2 | Run 3 | Run 4 | Run 5 | Run 6 | Run 7 | Run 8
 0.944 | 0.982 | 1.002 | 1.129 | 0.944 | 0.984 | 1.015 | 1.081
 
 
-- **Avg:** 1.010 microseconds
-- **Max:** 1.129 microseconds
-- **Min:** 0.944 microseconds
+- **Avg Latency:** 1.010 microseconds
+- **Max Latency:** 1.129 microseconds
+- **Min Latency:** 0.944 microseconds
 
 ## Installation
 ### Node
