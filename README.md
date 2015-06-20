@@ -96,6 +96,12 @@ digest.update('world', function() {
 
 ```
 
+# Corner Cases : Null & Undefined
+While we anticipate most the time, text-change-digest will be called with well-defined pieces of text, sometimes it can be useful to extend its functions to non-string values. Most useful among these are *null* and *undefined*. What happens for example, when the constructor is called with *null*, or **.update** is called with *undefined*. Rest assured, these cases are taken care of. Anytime a text-change-digest is called with *null* or *undefined* instead of text, the *null/undefined* value will map to the empty string before undergoing any processing.
+
+We thought this would make the most sense and preserve the behavior that developers would expect. Please let us know if otherwise.
+
+
 # License
 
 The MIT License (MIT)
