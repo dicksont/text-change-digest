@@ -9,13 +9,30 @@ var sampleText = [
   [ 'hello', 'bye' ],
   [ '0', ' ' ],
   [ '0', '' ],
-  [ constitution, constitution + ' ']
+  [ constitution, constitution + ' '],
+  [ undefined, ' ' ]
 ];
 var strload = require('string-etc');
 strload('cram');
 
 function test(text1, text2) {
-  describe("'" + text1.cram(32, { 'location' : 'body'}) + "' '" + text2.cram(32, { 'location' : 'body' }) + "'" , function() {
+  if (typeof(text1) == 'undefined') {
+    stext1 = "undefined";
+  } else if (typeof(text1) == 'null') {
+    stext1 = "null"
+  } else {
+    stext1 = "'" + text1.cram(32, { 'location' : 'body'}) + "'";
+  }
+
+  if (typeof(text2) == 'undefined') {
+    stext2 = "undefined";
+  } else if (typeof(text2) == 'null') {
+    stext2 = "null"
+  } else {
+    stext2 = "'" + text2.cram(32, { 'location' : 'body'}) + "'";
+  }
+
+  describe(stext1 + ' ' + stext2, function() {
     describe('.equals', function() {
       it('should return true for a digest also from the same source', function() {
         var a = tcdigest(text1);

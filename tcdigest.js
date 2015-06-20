@@ -33,11 +33,12 @@
    */
 
   function fnv1a(text) {
+    text = text || '';
     var offset = 2166136261;
     var prime = 16777619;
     var hash = offset;
 
-    for (var i=0; i < text.length; i++) {      
+    for (var i=0; i < text.length; i++) {
       hash = hash ^ text[i];
       hash = hash * prime;
     }
@@ -46,6 +47,8 @@
   }
 
   function times33(text) {
+    text = text || '';
+
     var hash = 5381;
 
     for (var i=0; i < text.length; i++) {
@@ -60,16 +63,21 @@
 
 
   function TextChangeDigest(text) {
-    if (text == null) return;
+    var text = text || '';
 
-    this.firstCharacter = text[0];
-    this.lastCharacter = text[text.length - 1];
     this.length = text.length;
+
+    if (text.length > 0) {
+      this.firstCharacter = text[0];
+      this.lastCharacter = text[text.length - 1];
+    }
+
     this.hash = hash(text);
   }
 
 
   TextChangeDigest.prototype.equals = function(digest) {
+    if (digest == null) return false;
 
     return (this.firstCharacter == digest.firstCharacter) &&
            (this.lastCharacter == digest.lastCharacter) &&
@@ -79,6 +87,7 @@
   }
 
   TextChangeDigest.prototype.update = function(text, fxChange) {
+    text = text || '';
 
     if (fxChange == null) {
       this.firstCharacter = text[0];
