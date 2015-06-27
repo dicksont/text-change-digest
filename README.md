@@ -3,7 +3,7 @@
 [![Bower version](https://badge.fury.io/bo/text-change-digest.svg)](http://badge.fury.io/bo/text-change-digest)
 
 # Introduction
-Text-change-digest is a fast digest/hash optimized for detecting changes to text. This makes it well-suited for low-latency, interactive applications. Our goal is to get the text change detection comfortably under 60ms, so that 60fps can be achieved on systems where text changes are polled at hundreds if not thousands of points.
+Text-change-digest is a fast digest/hash optimized for detecting changes to text. This makes it well-suited for low-latency, interactive applications. Our goal is to get the text change detection comfortably under 16ms, so that 60fps can be achieved on systems where text changes are polled at hundreds if not thousands of points.
 
 # Optimizations
 Our main method of providing fast change detection is to pick a hashing algorithm with sufficient characteristics, and to avoid calculating it until the very last stage in our change detection sequence. We picked 32-bit [Fowler-Noll-Vo] 1a as our hashing algorithm. [Fowler-Noll-Vo] gives pretty good diffusion, and is fast to compute.
